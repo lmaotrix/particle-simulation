@@ -1,54 +1,51 @@
+#include "../include/particle.h"
+#include "../include/physics.h"
+#include "../include/render.h"
 #include <SDL2/SDL.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+#define NUM_PARTICLES 100
 
 int main() {
-  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-    printf("Error initializing SDL: %s\n", SDL_GetError());
-    return 1;
+  // SDL Setup
+  SDL_Window *window = NULL;
+  SDL_Renderer *renderer = NULL;
+
+  // Initialize renderer and create window/renderer
+  if (init_renderer(&window, &renderer, 800, 600) != 0) {
+    return -1;
   }
 
-  SDL_Window *window =
-      SDL_CreateWindow("Particle Simulator", SDL_WINDOWPOS_CENTERED,
-                       SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+  // Initialize particles
+  Particle particles[NUM_PARTICLES];
+  initialize_particles(particles, NUM_PARTICLES);
 
-  if (!window) {
-    printf("Error creating window: %s\n", SDL_GetError());
-    SDL_Quit();
-    return 1;
-  }
-
-  SDL_Renderer *renderer =
-      SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-  if (!renderer) {
-    printf("Error creating renderer: %s\n", SDL_GetError());
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-    return 1;
-  }
-
-  // Simple event loop
-  SDL_Event event;
+  // Main simulation loop
   int running = 1;
+  float dt = 0.1f; // Time step
   while (running) {
+    SDL_Event event;
     while (SDL_PollEvent(&event)) {
       if (event.type == SDL_QUIT) {
         running = 0;
       }
     }
 
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black background
+    // physics update
+    apply_forces(particles, NUM_PARTICLES);
+    update_particles(particles, NUM_PARTICLES, dt);
+
+    // rendering
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
-
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White point
-    SDL_RenderDrawPoint(renderer, 400, 300); // Draw a point at the center
-
+    render_particles(renderer, particles, NUM_PARTICLES);
     SDL_RenderPresent(renderer);
-    SDL_Delay(16); // ~60 FPS
+
+    SDL_Delay(16); // 60fps frame rate
   }
 
-  SDL_DestroyRenderer(renderer);
-  SDL_DestroyWindow(window);
-  SDL_Quit();
+  cleanup_renderer(window, renderer);
 
   return 0;
 }
