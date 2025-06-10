@@ -7,7 +7,7 @@
 
 #define NUM_PARTICLES 100
 
-int main() {
+int main(int argc, char *argv[]) {
   // SDL Setup
   SDL_Window *window = NULL;
   SDL_Renderer *renderer = NULL;
