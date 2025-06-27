@@ -2,6 +2,12 @@
 #define PARTICLE_H
 #include <SDL2/SDL.h>
 
+// Simulation state for pause and play
+typedef enum {
+    STATE_RUNNING,
+    STATE_PAUSED
+} SimulationState;
+
 // Particle data structure definition
 typedef struct Particle {
   float x, y;   // Position
