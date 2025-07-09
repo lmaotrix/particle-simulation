@@ -5,10 +5,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define NUM_PARTICLES 100
+#define INITIAL_PARTICLES 10
+#define MAX_PARTICLES 1000
+#define PARTICLES_INCREMENT 10
+
+// Set initial number of particles
+int num_particles = INITIAL_PARTICLES;
 
 // Simulation state for pause and play
-
 SimulationState sim_state = STATE_RUNNING;
 
 int main(int argc, char *argv[])
@@ -23,8 +27,8 @@ int main(int argc, char *argv[])
   }
 
   // Initialize particles
-  Particle particles[NUM_PARTICLES];
-  initialize_particles(particles, NUM_PARTICLES);
+  Particle particles[MAX_PARTICLES];
+  initialize_particles(particles, num_particles);
 
   // Simulation control
   int running = 1;
@@ -57,21 +61,30 @@ int main(int argc, char *argv[])
         {
           sim_state = (sim_state == STATE_RUNNING) ? STATE_PAUSED : STATE_RUNNING;
         }
+
+        if (x >= 140 && x <= 240 && y >= 20 && y <= 60)
+        {
+          if (num_particles + PARTICLES_INCREMENT <= MAX_PARTICLES)
+          {
+            initialize_particles(particles + num_particles, PARTICLES_INCREMENT);
+            num_particles += PARTICLES_INCREMENT;
+          }
+        }
       }
     }
 
     // Physics update
-    apply_forces(particles, NUM_PARTICLES);
+    apply_forces(particles, num_particles);
     if (sim_state == STATE_RUNNING)
     {
-      update_particles(particles, NUM_PARTICLES, dt);
+      update_particles(particles, num_particles, dt);
     }
 
     // Rendering
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
-    render_particles(renderer, particles, NUM_PARTICLES);
-    render_buttons(renderer, sim_state);  // Make sure this is defined!
+    render_particles(renderer, particles, num_particles);
+    render_buttons(renderer, sim_state); // Make sure this is defined!
     SDL_RenderPresent(renderer);
 
     SDL_Delay(16); // ~60 FPS

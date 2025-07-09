@@ -11,6 +11,9 @@ int init_renderer(SDL_Window **window, SDL_Renderer **renderer, int width,
 // function to render all particles to the screen
 void render_particles(SDL_Renderer *renderer, Particle *particles, int n);
 
+// function to render UI buttons
+void render_buttons(SDL_Renderer *renderer, SimulationState sim_state);
+
 // function to clean up and close the SDL resources
 void cleanup_renderer(SDL_Window *window, SDL_Renderer *renderer);
 #endif // RENDER_H

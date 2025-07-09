@@ -50,11 +50,19 @@ void cleanup_renderer(SDL_Window *window, SDL_Renderer *renderer) {
 
 // render pause and play buttons
 void render_buttons(SDL_Renderer *renderer, SimulationState sim_state) {
-    SDL_Rect button = { 20, 20, 100, 40 }; // Position + size
-    SDL_SetRenderDrawColor(renderer, 100, 100, 255, 255); // Blue
-    SDL_RenderFillRect(renderer, &button);
+    // Pause button
+    SDL_Rect pauseButton = { 20, 20, 100, 40 }; // Position + size
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red
+    SDL_RenderFillRect(renderer, &pauseButton);
 
-    // You can use a library like SDL_ttf to draw "Pause"/"Resume" text
+    // add particles button
+    SDL_Rect addBtn = {140, 20, 100, 40};
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); // Blue
+    SDL_RenderFillRect(renderer, &addBtn);
+
+
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White border
-    SDL_RenderDrawRect(renderer, &button);
+    SDL_RenderDrawRect(renderer, &pauseButton);
+    SDL_RenderDrawRect(renderer, &addBtn);
+
 }
