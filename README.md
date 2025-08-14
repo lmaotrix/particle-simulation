@@ -12,7 +12,7 @@ The program demonstrates basic rendering and physics simulation of particles on 
 - Real-time rendering of particles.
 - Basic particle physics updates.
 - Event-driven main loop using SDL2.
-- Cross-platform compatible (tested on Windows with MinGW).
+- Cross-platform compatible (tested on Windows with MinGW and on WSL2 with Arch).
 
 ---
 
@@ -21,7 +21,7 @@ The program demonstrates basic rendering and physics simulation of particles on 
 - **Compiler:** `gcc` (MinGW 32-bit)
 - **Build System:** `mingw32-make`
 - **Graphics Library:** SDL2 (version 2.28.5)
-- **Operating System:** Windows 10/11 (64-bit, targeting 32-bit build)
+- **Operating System:** Windows 10/11 (64-bit, targeting 32-bit build) / WSL2 with Arch Linux
 
 ---
 
@@ -36,8 +36,11 @@ project-root/
 │   ├── particle.c
 │   └── physics.c
 ├── build/                # Build output (object files and executable)
-├── Makefile              # Build instructions
-
+├── Makefile              # Build instructions (for Unix-based systems)
+├── Makefile.win          # Build instructions (for windows)
+├── Assets/               # Fonts/Media
+│   ├── fonts/
+│   │   └── OpenSans-Regular.ttf
 ```
 
 
@@ -64,6 +67,12 @@ Run:
 ```bash
 mingw32-make
 ```
+or 
+``` bash
+make
+```
+
+
 this will:
 - Create build/ directory if missing.
 - Compile all source files into object files.
@@ -90,9 +99,10 @@ Navigate to build/ and run:
 
 ## 🔮 Future Improvements
 - Add more complex particle interactions.
-- Implement user controls (pause, add particles, etc.).
+- Implement user controls (remove particles, slider to choose particle number, etc.).
 - Automate cross-platform builds.
 - Improve performance with optimizations.
+- Convert to 3D simulation
 
 ---
 

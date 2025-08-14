@@ -2,6 +2,7 @@
 #include "../include/physics.h"
 #include "../include/render.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -23,6 +24,18 @@ int main(int argc, char *argv[])
 
   if (init_renderer(&window, &renderer, 800, 600) != 0)
   {
+    return -1;
+  }
+
+  // Initialize fonts
+  if (TTF_Init() != 0) {
+    fprintf(stderr, "TTF_Init failed: %s\n", TTF_GetError());
+    return -1;
+  }
+
+  TTF_Font* font = TTF_OpenFont("assets/fonts/OpenSans-Regular.ttf", 16);
+  if (!font) {
+    fprintf(stderr, "Failed to load font %s\n", TTF_GetError());
     return -1;
   }
 
@@ -84,7 +97,8 @@ int main(int argc, char *argv[])
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     render_particles(renderer, particles, num_particles);
-    render_buttons(renderer, sim_state); // Make sure this is defined!
+    render_particle_counter(renderer, font, num_particles);
+    render_buttons(renderer, sim_state);
     SDL_RenderPresent(renderer);
 
     SDL_Delay(16); // ~60 FPS

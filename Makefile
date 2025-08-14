@@ -1,7 +1,9 @@
+# TL,DR: This makefile is designed specifically for Linux systems. if you are using windows make sure to use `makefile.win` instead.
+
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Iinclude -IC:/libs/SDL2-2.28.5/i686-w64-mingw32/include -Dmain=SDL_main
-LDFLAGS = -L"C:/libs/SDL2-2.28.5/i686-w64-mingw32/lib" -lmingw32 -lSDL2main -lSDL2 -lm -mwindows -Wl,--subsystem,windows
+CFLAGS = -Wall -Wextra -Iinclude `sdl2-config --cflags`
+LDFLAGS = `sdl2-config --libs` -lSDL2_ttf -lm
 
 # Directories
 SRC_DIR = src
@@ -12,11 +14,12 @@ INCLUDE_DIR = include
 SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 
-# Target executable
-TARGET = $(BUILD_DIR)/particle_simulator.exe
+# Target executable (Linux binary, no .exe)
+TARGET = $(BUILD_DIR)/particle_simulator
 
 # Default target
-all: $(TARGET) copy_dll
+all: $(TARGET)
+
 
 # Rule to compile the final executable (linking)
 $(TARGET): $(OBJ) | $(BUILD_DIR)
@@ -26,17 +29,15 @@ $(TARGET): $(OBJ) | $(BUILD_DIR)
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Ensure the build directory exists (Windows style)
+# Create build directory if it doesn't exist
 $(BUILD_DIR):
-	if not exist $(BUILD_DIR) mkdir $(BUILD_DIR)
+	mkdir -p $(BUILD_DIR)
 
-# Copy SDL2.dll from SDL2 bin folder to build directory so your app runs
-copy_dll:
-	copy /Y C:\libs\SDL2-2.28.5\i686-w64-mingw32\bin\SDL2.dll $(BUILD_DIR)\
-
-# Clean up
+# Clean build directory
 clean:
-	if exist $(BUILD_DIR) rmdir /S /Q $(BUILD_DIR)
+	rm -rf $(BUILD_DIR)
+
 
 # Phony targets
-.PHONY: all clean copy_dll
+.PHONY: all clean
+

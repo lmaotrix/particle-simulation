@@ -1,5 +1,8 @@
 #include "../include/render.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_pixels.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 
 int init_renderer(SDL_Window **window, SDL_Renderer **renderer, int width,
@@ -65,4 +68,23 @@ void render_buttons(SDL_Renderer *renderer, SimulationState sim_state) {
     SDL_RenderDrawRect(renderer, &pauseButton);
     SDL_RenderDrawRect(renderer, &addBtn);
 
+}
+
+// render particle counter
+void render_particle_counter(SDL_Renderer* renderer, TTF_Font* font, int count) {
+    char buffer[64];
+    snprintf(buffer, sizeof(buffer), "Particles: %d", count);
+
+    SDL_Color white = {255, 255, 255, 255};
+    SDL_Surface* surface = TTF_RenderText_Blended(font, buffer, white);
+    if (!surface) return;
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    // positioned just below the buttons
+    SDL_Rect dst = {10, 70, surface->w, surface->h};
+
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
 }
