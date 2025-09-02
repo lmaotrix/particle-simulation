@@ -5,6 +5,8 @@
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
 
 #define INITIAL_PARTICLES 10
 #define MAX_PARTICLES 1000
@@ -12,7 +14,6 @@
 
 // Set initial number of particles
 int num_particles = INITIAL_PARTICLES;
-
 // Simulation state for pause and play
 SimulationState sim_state = STATE_RUNNING;
 
@@ -38,6 +39,8 @@ int main(int argc, char *argv[])
     fprintf(stderr, "Failed to load font %s\n", TTF_GetError());
     return -1;
   }
+  
+  srand((unsigned)time(NULL));
 
   // Initialize particles
   Particle particles[MAX_PARTICLES];

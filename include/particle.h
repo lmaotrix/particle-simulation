@@ -1,6 +1,7 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_pixels.h>
 
 // Simulation state for pause and play
 typedef enum {
@@ -14,6 +15,7 @@ typedef struct Particle {
   float vx, vy; // Velocity
   float ax, ay; // Acceleration
   float mass;   // Mass
+  SDL_Color color; // particle color
 } Particle;
 
 // Function Prototypes

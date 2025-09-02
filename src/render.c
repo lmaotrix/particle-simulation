@@ -1,4 +1,6 @@
 #include "../include/render.h"
+#include "../include/particle.h"
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_render.h>
@@ -40,6 +42,12 @@ void render_particles(SDL_Renderer *renderer, Particle *particles, int n) {
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
   for (int i = 0; i < n; i++) {
+
+      SDL_SetRenderDrawColor(renderer,
+              particles[i].color.r,
+              particles[i].color.g,
+              particles[i].color.b,
+              particles[i].color.a);
     SDL_Rect rect = {(int)particles[i].x, (int)particles[i].y, 5, 5};
     SDL_RenderFillRect(renderer, &rect);
   }
@@ -50,6 +58,7 @@ void cleanup_renderer(SDL_Window *window, SDL_Renderer *renderer) {
   SDL_DestroyWindow(window);
   SDL_Quit();
 }
+
 
 // render pause and play buttons
 void render_buttons(SDL_Renderer *renderer, SimulationState sim_state) {
