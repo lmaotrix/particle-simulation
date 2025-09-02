@@ -98,8 +98,8 @@ Navigate to build/ and run:
 - Missing SDL2.dll at runtime? Add its folder to PATH or ensure the copy_dll step succeeds.
 
 ## 🔮 Future Improvements
-- Add more complex particle interactions.
-- Implement user controls (remove particles, slider to choose particle number, etc.).
+- Add more complex particle interactions (screen wrapping, mouse attraction/repulsion, particle size variety, particle collision etc.).
+- Implement user controls (particle gravity toggle, slider to choose particle number, etc.).
 - Automate cross-platform builds.
 - Improve performance with optimizations.
 - Convert to 3D simulation

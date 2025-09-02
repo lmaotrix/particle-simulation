@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_pixels.h>
+#include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
@@ -72,10 +73,15 @@ void render_buttons(SDL_Renderer *renderer, SimulationState sim_state) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); // Blue
     SDL_RenderFillRect(renderer, &addBtn);
 
+    // remove particles button
+    SDL_Rect removeBtn = {260, 20, 100, 40};
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    SDL_RenderFillRect(renderer, &removeBtn);
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White border
     SDL_RenderDrawRect(renderer, &pauseButton);
     SDL_RenderDrawRect(renderer, &addBtn);
+    SDL_RenderDrawRect(renderer, &removeBtn);
 
 }
 

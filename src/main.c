@@ -77,7 +77,8 @@ int main(int argc, char *argv[])
         {
           sim_state = (sim_state == STATE_RUNNING) ? STATE_PAUSED : STATE_RUNNING;
         }
-
+        
+        // check if add particles button is clicked
         if (x >= 140 && x <= 240 && y >= 20 && y <= 60)
         {
           if (num_particles + PARTICLES_INCREMENT <= MAX_PARTICLES)
@@ -85,6 +86,15 @@ int main(int argc, char *argv[])
             initialize_particles(particles + num_particles, PARTICLES_INCREMENT);
             num_particles += PARTICLES_INCREMENT;
           }
+        }
+
+        if (x > 260 && x <= 360 && y >= 20 && y <= 60) {
+            if (num_particles >= PARTICLES_INCREMENT) {
+                num_particles -= PARTICLES_INCREMENT;
+            }
+            else {
+                num_particles = 0;
+            }
         }
       }
     }
