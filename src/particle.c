@@ -1,3 +1,4 @@
+#include "../include/physics.h"
 #include "../include/particle.h"
 #include <SDL2/SDL_stdinc.h>
 #include <stdlib.h> // For rand() function
@@ -38,6 +39,12 @@ void update_particles(Particle *particles, int n, float dt) {
     particles[i].vx += particles[i].ax * dt;
     particles[i].vy += particles[i].ay * dt;
 
+    // apply damping to slow down movement
+    if (mouse_down) {
+        float damping = 0.9f;
+        particles[i].vx *= damping;
+        particles[i].vy *= damping;
+    }
     // update position using velocity
     particles[i].x += particles[i].vx * dt;
     particles[i].y += particles[i].vy * dt;

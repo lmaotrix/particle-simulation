@@ -82,29 +82,45 @@ this will:
 ---
 
 ## ▶️ Running the Program
-Navigate to build/ and run:
-```bash
-./particle_simulator.exe
-```
-
----
-
+Navigate to build/ and run: 
+```bash ./particle_simulator.exe ```
+--- 
 ## ⚠️ Notes & Troubleshooting
+The -Dmain=SDL_main flag is required on Windows with SDL2.
+Linking order matters: SDL2 libs must come after object files.
+-mwindows prevents a console window from appearing. 
+If you see undefined references to SDL functions, verify include and linker paths. 
+Missing SDL2.dll at runtime? Add its folder to PATH or ensure the copy_dll step succeeds. 
 
-- The -Dmain=SDL_main flag is required on Windows with SDL2.
-- Linking order matters: SDL2 libs must come after object files.
-- -mwindows prevents a console window from appearing.
-- If you see undefined references to SDL functions, verify include and linker paths.
-- Missing SDL2.dll at runtime? Add its folder to PATH or ensure the copy_dll step succeeds.
+## 🔮 Future Improvements 
 
-## 🔮 Future Improvements
-- Add more complex particle interactions (screen wrapping, mouse attraction/repulsion, particle size variety, particle collision etc.).
-- Implement user controls (particle gravity toggle, slider to choose particle number, etc.).
-- Automate cross-platform builds.
-- Improve performance with optimizations.
-- Convert to 3D simulation
+Here are some exciting features we can add to make the Particle Simulator more advanced and visually stunning:
 
----
+### Visual Enhancements
+- ⭐ Star-like particles with random colors and sizes
+- ✨ Particle trails or motion blur effects
+- 💫 Glow or halo effect around particles
+- 🌈 Background gradient or dynamic cosmic backgrounds
 
-## 🙋‍♂️ Contact & Support
+### Physics Enhancements
+- 🌍 Gravity sources / planets with realistic attraction
+- 🔄 Global attraction/repulsion fields
+- ⚛ Inter-particle gravity (particles attracting each other)
+- 🪐 Collisions with massive bodies
+
+### Interactivity
+- 🖱 Mouse-controlled gravity wells
+- 🎛 GUI controls (buttons, sliders) to adjust simulation parameters
+- ⏸ Pause/resume and add/remove particles dynamically
+
+### Particle Lifecycle
+- ⏳ Particle fading, birth, and death over time
+- 🎨 Dynamic color evolution of particles
+
+### Advanced Cosmic Effects
+- 💥 Supernova-like bursts
+- 🌀 Galaxy patterns / spiral motion
+- 🌠 3D particle simulation with depth perspective
+--- 
+## 🙋‍♂️ Contact & Support 
 For questions, feel free to reach out to me at coco.gian07@gmail.com.

@@ -1,5 +1,6 @@
 #include "../include/render.h"
 #include "../include/particle.h"
+#include "../include/physics.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_pixels.h>
@@ -78,10 +79,19 @@ void render_buttons(SDL_Renderer *renderer, SimulationState sim_state) {
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
     SDL_RenderFillRect(renderer, &removeBtn);
 
+    // gravity toggle button
+    SDL_Rect gravityBtn = {380, 20, 100, 40};
+    if (gravity_enabled)
+        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // yellow
+    else
+        SDL_SetRenderDrawColor(renderer, 128, 128, 0, 255); // dark yellow
+    SDL_RenderFillRect(renderer, &gravityBtn);
+
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White border
     SDL_RenderDrawRect(renderer, &pauseButton);
     SDL_RenderDrawRect(renderer, &addBtn);
     SDL_RenderDrawRect(renderer, &removeBtn);
+    SDL_RenderDrawRect(renderer, &gravityBtn);
 
 }
 
