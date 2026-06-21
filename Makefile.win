@@ -1,7 +1,7 @@
 # Compiler and flags
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude -IC:/libs/SDL2-2.28.5/i686-w64-mingw32/include -Dmain=SDL_main
-LDFLAGS = -L"C:/libs/SDL2-2.28.5/i686-w64-mingw32/lib" -lmingw32 -lSDL2main -lSDL2 -lm -mwindows -Wl,--subsystem,windows
+LDFLAGS = -L"C:/libs/SDL2-2.28.5/i686-w64-mingw32/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lm -mwindows -Wl,--subsystem,windows
 
 # Directories
 SRC_DIR = src
@@ -32,7 +32,8 @@ $(BUILD_DIR):
 
 # Copy SDL2.dll from SDL2 bin folder to build directory so your app runs
 copy_dll:
-	copy /Y C:\libs\SDL2-2.28.5\i686-w64-mingw32\bin\SDL2.dll $(BUILD_DIR)\
+	copy /Y C:\msys64\mingw32\bin\SDL2.dll $(BUILD_DIR)\
+	copy /Y C:\msys64\mingw32\bin\SDL2_ttf $(BUILD_DIR)\
 
 # Clean up
 clean:

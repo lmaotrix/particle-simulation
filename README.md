@@ -58,6 +58,9 @@ project-root/
    - Recommended: Add SDL2’s `bin` folder to your **PATH** environment variable  
    - Alternative: The Makefile copies `SDL2.dll` to the build directory automatically.
 
+4. **SDL2_ttf font library:**
+   It's important to have it installed for the everything to be rendered properly
+
 ---
 
 ## 🏗 Building the Project

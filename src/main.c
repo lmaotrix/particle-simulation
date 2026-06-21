@@ -30,6 +30,8 @@ int main(int argc, char *argv[])
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL;
 
+    SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
+
     if (init_renderer(&window, &renderer, 800, 600) != 0)
     {
         return -1;
